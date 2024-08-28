@@ -1,7 +1,7 @@
 package notai.domain.chat.room.service;
 
 import lombok.RequiredArgsConstructor;
-import notai.domain.chat.room.dto.ChatRoomResponseDTO;
+import notai.domain.chat.room.dto.ChatRoomIdResponse;
 import notai.domain.chat.room.entity.ChatRoom;
 import notai.domain.chat.room.repository.ChatRoomRepository;
 import notai.domain.user.entity.User;
@@ -15,7 +15,7 @@ public class ChatRoomService {
 
     private final ChatRoomRepository chatRoomRepository;
 
-    public ChatRoomResponseDTO addChatRoom(User user) {
+    public ChatRoomIdResponse addChatRoom(User user) {
 
         // 새 채팅방 엔티티 생성
         ChatRoom newChatRoom = ChatRoom.builder()

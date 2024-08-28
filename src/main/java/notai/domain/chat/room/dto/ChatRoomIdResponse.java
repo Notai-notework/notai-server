@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ChatRoomResponseDTO {
+public class ChatRoomIdResponse {
     private Long id;
 }

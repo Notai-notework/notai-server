@@ -17,7 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import notai.domain.chat.message.entity.ChatMessage;
-import notai.domain.chat.room.dto.ChatRoomResponseDTO;
+import notai.domain.chat.room.dto.ChatRoomIdResponse;
 import notai.domain.user.entity.User;
 import notai.global.entity.BaseTime;
 
@@ -41,8 +41,8 @@ public class ChatRoom extends BaseTime {
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
     // entity -> dto 변환
-    public ChatRoomResponseDTO toDTO() {
-        return ChatRoomResponseDTO.builder().id(id)
+    public ChatRoomIdResponse toDTO() {
+        return ChatRoomIdResponse.builder().id(id)
             .build();
     }
 

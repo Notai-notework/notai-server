@@ -1,7 +1,7 @@
 package notai.domain.chat.room.controller;
 
 import lombok.RequiredArgsConstructor;
-import notai.domain.chat.room.dto.ChatRoomResponseDTO;
+import notai.domain.chat.room.dto.ChatRoomIdResponse;
 import notai.domain.chat.room.service.ChatRoomService;
 import notai.global.auth.CustomUserDetails;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,10 @@ public class ChatRoomController {
 
     // 채팅방 생성
     @PostMapping
-    public ResponseEntity<ChatRoomResponseDTO> chatRoomAdd(
+    public ResponseEntity<ChatRoomIdResponse> chatRoomAdd(
         @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        ChatRoomResponseDTO response = chatRoomService.addChatRoom(customUserDetails.getUser());
+        ChatRoomIdResponse response = chatRoomService.addChatRoom(customUserDetails.getUser());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
