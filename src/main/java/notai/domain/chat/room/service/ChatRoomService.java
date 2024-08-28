@@ -1,7 +1,6 @@
 package notai.domain.chat.room.service;
 
 import lombok.RequiredArgsConstructor;
-import notai.domain.chat.room.dto.ChatRoomRequestDTO;
 import notai.domain.chat.room.dto.ChatRoomResponseDTO;
 import notai.domain.chat.room.entity.ChatRoom;
 import notai.domain.chat.room.repository.ChatRoomRepository;
