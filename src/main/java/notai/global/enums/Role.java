@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum Role {
 
     ADMIN("관리자"),
+    AI("챗봇"),
     USER("유저");
 
     private final String detail;
