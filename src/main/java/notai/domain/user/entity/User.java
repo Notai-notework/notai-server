@@ -1,5 +1,6 @@
 package notai.domain.user.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -35,4 +36,28 @@ public class User extends BaseTime {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private String phone;
+
+    private String nickname;
+
+    private String address;
+
+    private String imageUrl;
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updatePhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void updateAddress(String address) {
+        this.address = address;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
