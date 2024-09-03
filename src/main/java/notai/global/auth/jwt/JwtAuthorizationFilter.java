@@ -43,7 +43,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
 
         // 토큰이 "Bearer ~" 형태가 아닌 경우
-        if (authorization.startsWith("Bearer ")) {
+        if (!authorization.startsWith("Bearer ")) {
             throw new CustomException(JwtErrorCode.TOKEN_INVALID_FORMAT);
         }
 
