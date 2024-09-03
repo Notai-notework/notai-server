@@ -28,10 +28,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         FilterChain filterChain) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
-        if (Pattern.matches("/api/register", requestURI) ||
-            Pattern.matches("/login", requestURI) ||
-            Pattern.matches("/h2-console.*", requestURI)) {
-
+        if (!Pattern.matches("/api/*", requestURI)) {
             filterChain.doFilter(request, response);
             return;
         }

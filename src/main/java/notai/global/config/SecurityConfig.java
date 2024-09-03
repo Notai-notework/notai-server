@@ -40,8 +40,8 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
-                .requestMatchers("/login", "/api/register", "/h2-console/**").permitAll()
-                .anyRequest().authenticated())
+                .requestMatchers("/api/**").authenticated()
+                .anyRequest().permitAll())
 
             .addFilterAt(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class)
