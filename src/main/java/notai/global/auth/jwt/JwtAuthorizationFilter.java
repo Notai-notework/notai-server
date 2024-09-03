@@ -10,38 +10,41 @@ import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import notai.domain.user.entity.User;
 import notai.global.auth.CustomUserDetails;
+import notai.global.auth.UserDetailsServiceImpl;
 import notai.global.enums.JwtType;
-import notai.global.enums.Role;
 import notai.global.exception.CustomException;
 import notai.global.exception.errorCode.JwtErrorCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-        FilterChain filterChain) throws ServletException, IOException {
+        FilterChain filterChain) throws ServletException, IOException, CustomException {
 
         String requestURI = request.getRequestURI();
-        if (!Pattern.matches("/api/*", requestURI)) {
+        if (!Pattern.matches("/api/.*", requestURI)) {
             filterChain.doFilter(request, response);
             return;
-        }
-
-        if (request.getRequestURI().equals("/refresh-token")) {
-
         }
 
         String authorization = request.getHeader("Authorization");
 
         // 액세스 토큰이 없는 경우
-        if (authorization == null) {
+        if (!StringUtils.hasText(authorization)) {
             throw new CustomException(JwtErrorCode.ACCESS_TOKEN_MISSING);
+        }
+
+        // 토큰이 "Bearer ~" 형태가 아닌 경우
+        if (authorization.startsWith("Bearer ")) {
+            throw new CustomException(JwtErrorCode.TOKEN_INVALID_FORMAT);
         }
 
         String token = authorization.split(" ")[1];
@@ -80,10 +83,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 //            response.setHeader("Authorization", "Bearer " + newAccessToken);
 //        }
 
-        User user = User.builder()
-            .email(jwtTokenProvider.getEmail(token, JwtType.ACCESS))
-            .name(jwtTokenProvider.getName(token, JwtType.ACCESS))
-            .role(Role.valueOf(jwtTokenProvider.getRole(token, JwtType.ACCESS))).build();
+//        User user = User.builder()
+//            .email(jwtTokenProvider.getEmail(token, JwtType.ACCESS))
+//            .name(jwtTokenProvider.getName(token, JwtType.ACCESS))
+//            .role(Role.valueOf(jwtTokenProvider.getRole(token, JwtType.ACCESS))).build();
+        User user = ((CustomUserDetails) userDetailsService.loadUserByUsername(
+            jwtTokenProvider.getEmail(token, JwtType.ACCESS))).getUser();
 
         CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
