@@ -1,7 +1,9 @@
 package notai.global.exception;
 
+import lombok.Getter;
 import notai.global.exception.errorCode.ErrorCode;
 
+@Getter
 public class CustomException extends RuntimeException {
 
     private final ErrorCode errorCode;
