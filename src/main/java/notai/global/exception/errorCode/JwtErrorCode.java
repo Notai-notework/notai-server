@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum JwtErrorCode implements ErrorCode {
 
+    TOKEN_INVALID_FORMAT(HttpStatus.BAD_REQUEST, "올바르지 않은 토큰 형태입니다"),
+
     ACCESS_TOKEN_INVALID_SIGNATURE(HttpStatus.UNAUTHORIZED, "액세스 토큰이 유효하지 않습니다"),
     ACCESS_TOKEN_MISSING(HttpStatus.FORBIDDEN, "요청에 액세스 토큰이 존재하지 않습니다"),
     ACCESS_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "액세스 토큰이 만료되었습니다"),
