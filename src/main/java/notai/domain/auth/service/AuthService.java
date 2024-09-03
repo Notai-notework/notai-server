@@ -28,6 +28,7 @@ public class AuthService {
 
         User user = UserMapper.INSTANCE.toEntity(request);
         user.updateRole(Role.USER);
+        user.updatePassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
 
