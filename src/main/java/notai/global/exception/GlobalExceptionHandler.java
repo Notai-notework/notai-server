@@ -2,6 +2,7 @@ package notai.global.exception;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
             .status(400)
             .errorCode("VALIDATION_ERROR")
-            .message(ex.getMessage()).build();
+            .message(Objects.requireNonNull(ex.getFieldError()).getDefaultMessage()).build();
 
         return ResponseEntity.status(404).body(response);
     }
