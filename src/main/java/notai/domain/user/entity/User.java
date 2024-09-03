@@ -37,7 +37,7 @@ public class User extends BaseTime {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String phone;
+    private String phoneNumber;
 
     private String nickname;
 
@@ -49,8 +49,8 @@ public class User extends BaseTime {
         this.nickname = nickname;
     }
 
-    public void updatePhone(String phone) {
-        this.phone = phone;
+    public void updatePhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void updateAddress(String address) {
@@ -59,5 +59,9 @@ public class User extends BaseTime {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public void updateRole(Role role) {
+        this.role = role;
     }
 }
