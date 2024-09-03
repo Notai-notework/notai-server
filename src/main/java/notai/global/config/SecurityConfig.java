@@ -1,8 +1,10 @@
 package notai.global.config;
 
 import lombok.RequiredArgsConstructor;
+import notai.global.auth.UserDetailsServiceImpl;
 import notai.global.auth.jwt.JwtAuthenticationFilter;
 import notai.global.auth.jwt.JwtAuthorizationFilter;
+import notai.global.auth.jwt.JwtExceptionHandlerFilter;
 import notai.global.auth.jwt.JwtTokenProvider;
 import notai.global.enums.Role;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,7 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -46,8 +49,10 @@ public class SecurityConfig {
             .addFilterAt(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider),
                 UsernamePasswordAuthenticationFilter.class)
 
-            .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider),
-                JwtAuthenticationFilter.class);
+            .addFilterBefore(new JwtAuthorizationFilter(jwtTokenProvider, userDetailsService),
+                JwtAuthenticationFilter.class)
+
+            .addFilterBefore(new JwtExceptionHandlerFilter(), JwtAuthorizationFilter.class);
 
         return http.build();
     }
