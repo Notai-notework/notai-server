@@ -34,7 +34,7 @@ public class UserController {
     public ResponseEntity<UserDetailResponse> userDetails(
         @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        UserDetailResponse response = userService.findUser(customUserDetails.getUser().getId());
+        UserDetailResponse response = userService.findUser(customUserDetails.getUser());
 
         return ResponseEntity.ok().body(response);
     }
@@ -45,8 +45,7 @@ public class UserController {
         @AuthenticationPrincipal CustomUserDetails customUserDetails,
         @Valid @RequestBody UserModifyRequest request) {
 
-        UserModifyResponse response = userService.modifyUser(request,
-            customUserDetails.getUser().getId());
+        UserModifyResponse response = userService.modifyUser(request, customUserDetails.getUser());
 
         return ResponseEntity.ok().body(response);
     }
@@ -58,7 +57,7 @@ public class UserController {
         @Valid @RequestBody UserModifyPasswordRequest request) {
 
         UserModifyPasswordResponse response = userService.modifyUserPassword(request,
-            customUserDetails.getUser().getId());
+            customUserDetails.getUser());
 
         return ResponseEntity.ok().body(response);
     }

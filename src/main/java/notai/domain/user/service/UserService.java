@@ -22,38 +22,28 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDetailResponse findUser(Long userId) {
-
-        User foundUser = userRepository.findById(userId).orElseThrow(() ->
-            new CustomException(UserErrorCode.USER_NOT_FOUND));
-
-        return UserMapper.INSTANCE.toDetailDTO(foundUser);
+    public UserDetailResponse findUser(User user) {
+        return UserMapper.INSTANCE.toDetailDTO(user);
     }
 
     // 유저 정보 수정
-    public UserModifyResponse modifyUser(UserModifyRequest request, Long userId) {
+    public UserModifyResponse modifyUser(UserModifyRequest request, User user) {
 
-        User foundUser = userRepository.findById(userId).orElseThrow(() ->
-            new CustomException(UserErrorCode.USER_NOT_FOUND));
+        user.updateAddress(request.getAddress());
+        user.updatePhoneNumber(request.getPhoneNumber());
+        user.updateNickname(request.getNickname());
 
-        foundUser.updateAddress(request.getAddress());
-        foundUser.updatePhoneNumber(request.getPhoneNumber());
-        foundUser.updateNickname(request.getNickname());
-
-        User updatedUser = userRepository.save(foundUser);
+        User updatedUser = userRepository.save(user);
 
         return UserMapper.INSTANCE.toModifyDTO(updatedUser);
     }
 
     // 유저 비밀번호 변경
-    public UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request, Long userId) {
+    public UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request, User user) {
 
-        User foundUser = userRepository.findById(userId).orElseThrow(() ->
-            new CustomException(UserErrorCode.USER_NOT_FOUND));
+        user.updatePassword(passwordEncoder.encode(request.getPassword()));
 
-        foundUser.updatePassword(passwordEncoder.encode(request.getPassword()));
-
-        User updatedUser = userRepository.save(foundUser);
+        User updatedUser = userRepository.save(user);
 
         return UserMapper.INSTANCE.toModifyPasswordDTO(updatedUser);
     }
