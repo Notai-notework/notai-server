@@ -40,6 +40,8 @@ public class S3Service {
         amazonS3.putObject(new PutObjectRequest(s3Bucket, fileName, file).withCannedAcl(
             CannedAccessControlList.PublicRead));
 
+        file.delete();
+
         UploadResponse response = UploadResponse.builder().fileName(fileName)
             .fileUrl(amazonS3.getUrl(s3Bucket, fileName).toString()).build();
 
@@ -72,6 +74,7 @@ public class S3Service {
         throw new CustomException(FileErrorCode.FILE_CONVERT_ERROR);
     }
 
+    // 파일 삭제
     public void deleteFile(String fileName) {
 
         try {
