@@ -7,6 +7,7 @@ import notai.domain.user.dto.request.UserModifyRequest;
 import notai.domain.user.dto.request.UserPasswordCheckRequest;
 import notai.domain.user.dto.response.UserDetailResponse;
 import notai.domain.user.dto.response.UserModifyPasswordResponse;
+import notai.domain.user.dto.response.UserModifyProfileImageResponse;
 import notai.domain.user.dto.response.UserModifyResponse;
 import notai.domain.user.service.UserService;
 import notai.global.auth.CustomUserDetails;
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class UserController {
+public class    UserController {
 
     private final UserService userService;
 
@@ -71,6 +74,18 @@ public class UserController {
         userService.checkUserPassword(request, customUserDetails.getUser());
 
         MessageResponse response = MessageResponse.builder().message("올바른 비밀번호입니다").build();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 유저 프로필 수정
+    @PutMapping("/profile-image")
+    public ResponseEntity<UserModifyProfileImageResponse> userProfileImageModify(
+        @AuthenticationPrincipal CustomUserDetails customUserDetails,
+        @RequestPart MultipartFile image) {
+
+        UserModifyProfileImageResponse response = userService.modifyUserProfileImage(
+            image, customUserDetails.getUser());
 
         return ResponseEntity.ok().body(response);
     }

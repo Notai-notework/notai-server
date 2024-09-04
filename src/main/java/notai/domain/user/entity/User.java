@@ -1,18 +1,21 @@
 package notai.domain.user.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import notai.domain.file.entity.File;
 import notai.global.entity.BaseTime;
 import notai.global.enums.Role;
 
@@ -43,7 +46,9 @@ public class User extends BaseTime {
 
     private String address;
 
-    private String imageUrl;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "image_file_id")
+    private File imageFile;
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
@@ -63,5 +68,9 @@ public class User extends BaseTime {
 
     public void updateRole(Role role) {
         this.role = role;
+    }
+
+    public void updateImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 }
