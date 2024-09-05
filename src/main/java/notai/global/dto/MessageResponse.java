@@ -1,4 +1,4 @@
-package notai.domain.auth.dto.response;
+package notai.global.dto;
 
 import lombok.Builder;
 import lombok.Data;
