@@ -78,7 +78,7 @@ public class    UserController {
         return ResponseEntity.ok().body(response);
     }
 
-    // 유저 프로필 수정
+    // 유저 프로필 이미지 수정
     @PutMapping("/profile-image")
     public ResponseEntity<UserModifyProfileImageResponse> userProfileImageModify(
         @AuthenticationPrincipal CustomUserDetails customUserDetails,
