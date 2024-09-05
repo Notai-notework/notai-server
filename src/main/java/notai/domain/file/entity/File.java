@@ -1,12 +1,12 @@
 package notai.domain.file.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +28,7 @@ public class File extends BaseTime {
 
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String url;
 
     @Enumerated(EnumType.STRING)

@@ -1,11 +1,11 @@
 package notai.domain.chat.message.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,5 +35,6 @@ public class ChatMessage extends BaseTime {
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
+    @Lob
     private String content;
 }
