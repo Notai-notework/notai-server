@@ -5,6 +5,7 @@ import notai.domain.document.entity.Document;
 import notai.domain.user.mapper.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -13,6 +14,7 @@ public interface DocumentMapper {
 
     DocumentMapper INSTANCE = Mappers.getMapper(DocumentMapper.class);
 
+    @Named("toDetailDTO")
     @Mapping(source = "documentFile.url", target = "documentFileUrl")
     @Mapping(source = "imageFile.url", target = "previewImageUrl")
     @Mapping(source = "user", target = "user", qualifiedByName = "toSummaryDTO")
