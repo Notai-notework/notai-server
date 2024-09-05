@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import notai.domain.chat.room.entity.ChatRoom;
 import notai.domain.file.entity.File;
 import notai.global.entity.BaseTime;
 import notai.global.enums.Role;
@@ -45,6 +46,9 @@ public class User extends BaseTime {
     private String nickname;
 
     private String address;
+
+    @OneToOne(mappedBy = "user")
+    private ChatRoom chatRoom;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "image_file_id")
