@@ -23,6 +23,6 @@ public class Tag extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 45)
+    @Column(length = 45, unique = true)
     private String name;
 }
