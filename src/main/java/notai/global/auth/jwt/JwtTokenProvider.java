@@ -11,6 +11,8 @@ import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import notai.global.enums.JwtType;
 import notai.global.enums.Role;
+import notai.global.exception.CustomException;
+import notai.global.exception.errorCode.JwtErrorCode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -94,6 +96,8 @@ public class JwtTokenProvider {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+        } catch (ExpiredJwtException e) {
+            throw new CustomException(JwtErrorCode.ACCESS_TOKEN_EXPIRED);
         } catch (Exception e) {
             log.error("토큰 파싱 에러 !! == {}", e.getMessage());
             throw e;
