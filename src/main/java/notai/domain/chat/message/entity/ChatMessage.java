@@ -1,6 +1,8 @@
 package notai.domain.chat.message.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import notai.domain.chat.message.enums.ChatMessageType;
 import notai.domain.chat.room.entity.ChatRoom;
 import notai.domain.user.entity.User;
 import notai.global.entity.BaseTime;
@@ -37,4 +40,7 @@ public class ChatMessage extends BaseTime {
 
     @Lob
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private ChatMessageType type;
 }
