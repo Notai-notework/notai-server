@@ -90,6 +90,7 @@ public class DocumentService {
         return DocumentMapper.INSTANCE.toDetailDTO(documentTag.getDocument());
     }
 
+    // 문서 삭제
     public void removeDocument(DocumentRemoveRequest request, User user) {
 
         Document foundDocument = documentRepository.findById(request.getDocumentId())
