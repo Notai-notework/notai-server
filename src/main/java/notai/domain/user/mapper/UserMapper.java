@@ -1,6 +1,5 @@
 package notai.domain.user.mapper;
 
-import lombok.RequiredArgsConstructor;
 import notai.domain.auth.dto.request.RegisterRequest;
 import notai.domain.user.dto.response.UserDetailResponse;
 import notai.domain.user.dto.response.UserModifyPasswordResponse;
@@ -13,7 +12,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
@@ -25,6 +23,9 @@ public interface UserMapper {
     UserModifyResponse toModifyDTO(User user);
 
     UserDetailResponse toDetailDTO(User user);
+
+    @Named("toSummaryDTO")
+    UserSummaryResponse toSummaryDTO(User user);
 
     UserModifyPasswordResponse toModifyPasswordDTO(User user);
 
