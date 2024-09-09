@@ -51,6 +51,9 @@ dependencies {
 
 	// PDF
 	implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.32'
+
+	// MAIL
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {
