@@ -62,4 +62,8 @@ public class Document extends BaseTime {
     public void updateDocumentFile(File documentFile) {
         this.documentFile = documentFile;
     }
+
+    public void updateDocumentTag(DocumentTag documentTag) {
+        this.documentTag = documentTag;
+    }
 }

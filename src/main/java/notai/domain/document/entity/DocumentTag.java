@@ -38,4 +38,9 @@ public class DocumentTag extends BaseTime {
     public void updateTag(Tag tag) {
         this.tag = tag;
     }
+
+    public void updateDocument(Document document) {
+        this.document = document;
+        document.updateDocumentTag(this);
+    }
 }
