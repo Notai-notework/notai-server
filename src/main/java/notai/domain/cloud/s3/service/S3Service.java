@@ -52,7 +52,7 @@ public class S3Service {
         amazonS3.putObject(new PutObjectRequest(s3Bucket, fileName, file).withCannedAcl(
             CannedAccessControlList.PublicRead));
 
-        UploadResponse response = new UploadResponse();
+        UploadResponse response = UploadResponse.builder().build();
 
         // 미리보기 이미지 업로드
         if (fileType == FileType.DOCUMENT) {
