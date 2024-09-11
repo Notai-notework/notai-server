@@ -49,7 +49,7 @@ public class EmailConfig {
         try {
             javaMailSender.testConnection();
         } catch (MessagingException e) {
-            log.error("mail 연결 테스트 실패 == " + e.getMessage());
+            log.error("mail 연결 테스트 실패 == {}", e.getMessage());
         }
 
         return javaMailSender;
