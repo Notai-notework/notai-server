@@ -24,7 +24,8 @@ public class DocumentTagService {
         Tag foundTag = tagRepository.findByName(tagName)
             .orElse(Tag.builder().name(tagName).build()); // 태그 데이터가 없으면 새로 생성
 
-        DocumentTag newDocumentTag = DocumentTag.builder().tag(foundTag).document(document).build();
+        DocumentTag newDocumentTag = DocumentTag.builder().tag(foundTag).build();
+        newDocumentTag.updateDocument(document);
 
         return documentTagRepository.save(newDocumentTag);
     }
