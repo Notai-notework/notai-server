@@ -1,6 +1,6 @@
 package notai.global.config;
 
-
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -28,6 +28,7 @@ public class S3Config {
         return AmazonS3ClientBuilder
             .standard()
             .withCredentials(new AWSStaticCredentialsProvider(basicAWSCredentials))
+            .withClientConfiguration(new ClientConfiguration().withMaxErrorRetry(2))
             .withRegion(region)
             .build();
     }
