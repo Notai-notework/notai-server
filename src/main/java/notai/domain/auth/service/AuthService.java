@@ -1,18 +1,23 @@
 package notai.domain.auth.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import notai.domain.auth.dto.request.EmailCheckRequest;
 import notai.domain.auth.dto.request.NicknameCheckRequest;
 import notai.domain.auth.dto.request.PasswordCheckRequest;
 import notai.domain.auth.dto.request.RegisterRequest;
+import notai.global.auth.jwt.JwtTokenProvider;
 import notai.global.dto.MessageResponse;
 import notai.domain.user.dto.response.UserDetailResponse;
 import notai.domain.user.entity.User;
 import notai.domain.user.mapper.UserMapper;
 import notai.domain.user.repository.UserRepository;
+import notai.global.enums.JwtType;
 import notai.global.enums.Role;
 import notai.global.exception.CustomException;
 import notai.global.exception.errorCode.AuthErrorCode;
+import notai.global.exception.errorCode.JwtErrorCode;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // 회원가입
     public UserDetailResponse registerUser(RegisterRequest request) {
@@ -72,6 +78,27 @@ public class AuthService {
         }
 
         return generateMessageResponse("사용 가능한 이메일입니다");
+    }
+
+    public Map<String, String> refreshToken(String refreshToken) {
+
+        boolean isExpired = jwtTokenProvider.isExpired(refreshToken, JwtType.REFRESH);
+
+        if (!isExpired) {
+
+            Map<String, Object> payload = jwtTokenProvider.extractPayload(refreshToken);
+
+            String access = jwtTokenProvider.generate((String) payload.get("email"),
+                (String) payload.get("name"), Role.valueOf((String) payload.get("role")),
+                JwtType.ACCESS);
+            String refresh = jwtTokenProvider.generate((String) payload.get("email"),
+                (String) payload.get("name"), Role.valueOf((String) payload.get("role")),
+                JwtType.REFRESH);
+
+            return Map.of("access", access, "refresh", refresh);
+        }
+
+        throw new CustomException(JwtErrorCode.REFRESH_TOKEN_INVALID_SIGNATURE);
     }
 
     // MessageResponse 생성

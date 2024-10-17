@@ -63,7 +63,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Role role = principal.getRole();
 
         String accessToken = jwtTokenProvider.generate(email, name, role, JwtType.ACCESS);
+        String refreshToken = jwtTokenProvider.generate(email, name, role, JwtType.REFRESH);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
+        response.setHeader("refresh", "Bearer " + refreshToken);
     }
 }
