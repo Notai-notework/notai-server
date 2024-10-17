@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/chat-rooms/{roomId}/messages")
+@RequestMapping("/api/chat-rooms/messages")
 @RequiredArgsConstructor
 public class ChatMessageController {
 
@@ -28,10 +28,10 @@ public class ChatMessageController {
     // 채팅 메시지 목록
     @GetMapping
     public ResponseEntity<List<ChatMessageDetailResponse>> chatMessageListDetails(
-        @PathVariable Long roomId, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
         List<ChatMessageDetailResponse> response = chatMessageService.findAllChatMessage(
-            roomId, customUserDetails.getUser());
+            customUserDetails.getUser());
 
         return ResponseEntity.ok().body(response);
     }
@@ -39,7 +39,7 @@ public class ChatMessageController {
     // 채팅 메시지 전송 및 AI 답변 요청
     @PostMapping
     public ResponseEntity<ChatMessageAddResponse> chatMessageAdd(
-        @Valid @RequestBody ChatMessageAddRequest request, @PathVariable Long roomId,
+        @Valid @RequestBody ChatMessageAddRequest request,
         @AuthenticationPrincipal CustomUserDetails customUserDetails
     ) {
 

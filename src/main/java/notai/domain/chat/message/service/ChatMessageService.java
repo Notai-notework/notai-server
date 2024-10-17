@@ -26,12 +26,12 @@ public class ChatMessageService {
     private final GeminiService geminiService;
 
     // 채팅 메시지 목록
-    public List<ChatMessageDetailResponse> findAllChatMessage(Long roomId, User user) {
+    public List<ChatMessageDetailResponse> findAllChatMessage(User user) {
 
-        // roomId 에러 체크
-        if (!Objects.equals(roomId, user.getChatRoom().getId())) {
-            throw new CustomException(ChatRoomErrorCode.CHAT_ROOM_ID_ERROR);
-        }
+//        roomId 에러 체크
+//        if (!Objects.equals(roomId, user.getChatRoom().getId())) {
+//            throw new CustomException(ChatRoomErrorCode.CHAT_ROOM_ID_ERROR);
+//        }
 
         List<ChatMessage> foundChatMessageList = chatMessageRepository.findByChatRoomId(
             user.getChatRoom().getId());
@@ -61,7 +61,9 @@ public class ChatMessageService {
 
         return ChatMessageAddResponse.builder()
             .sendMessage(savedChatMessage.getContent()).sendMessageId(savedChatMessage.getId())
+            .sendMessageCreatedAt(savedAIChatMessage.getCreatedAt())
             .aiMessage(savedAIChatMessage.getContent()).aiMessageId(savedAIChatMessage.getId())
+            .aiMessageCreatedAt(savedAIChatMessage.getCreatedAt())
             .build();
     }
 }

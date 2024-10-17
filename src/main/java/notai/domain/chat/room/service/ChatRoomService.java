@@ -17,11 +17,10 @@ public class ChatRoomService {
 
     public ChatRoomIdResponse addChatRoom(User user) {
 
-        // 새 채팅방 엔티티 생성
-        ChatRoom newChatRoom = ChatRoom.builder()
-            .user(user).build();
+        ChatRoom chatRoom = chatRoomRepository.findByUserId(user.getId()).orElse(ChatRoom.builder()
+            .user(user).build());
 
-        ChatRoom saveedChatRoom = chatRoomRepository.save(newChatRoom);
+        ChatRoom saveedChatRoom = chatRoomRepository.save(chatRoom);
 
         return saveedChatRoom.toDTO();
     }

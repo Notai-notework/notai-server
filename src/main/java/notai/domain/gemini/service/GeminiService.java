@@ -24,7 +24,7 @@ public class GeminiService {
 
         String requestURL = url + "?key=" + secret;
 
-        GeminiRequestDTO request = new GeminiRequestDTO(question);
+        GeminiRequestDTO request = new GeminiRequestDTO(question + ". 답은 한국어로 해줘.");
 
         GeminiResponseDTO response = restTemplate.postForObject(requestURL, request,
             GeminiResponseDTO.class);

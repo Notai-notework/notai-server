@@ -2,6 +2,7 @@ package notai.domain.email.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class EmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
 
             messageHelper.setTo(email);
-            messageHelper.setFrom(senderEmail);
+            messageHelper.setFrom(senderEmail, "Notai-notework");
             messageHelper.setSubject("[Notai] 이메일 인증번호 발송");
             messageHelper.setText(generateEmailMessage(email), true);
 
@@ -49,6 +50,8 @@ public class EmailService {
         } catch (MessagingException e) {
             log.error("이메일 인증번호 발송 에러 == {}", e.getMessage());
             throw new CustomException(EmailErrorCode.EMAIL_CODE_SENDING_ERROR);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
 
         javaMailSender.send(message);

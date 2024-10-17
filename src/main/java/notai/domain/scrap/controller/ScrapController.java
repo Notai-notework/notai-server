@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import notai.domain.scrap.dto.response.ScrapDetailResponse;
 import notai.domain.scrap.service.ScrapService;
 import notai.global.auth.CustomUserDetails;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,18 +24,23 @@ public class ScrapController {
 
     // 스크랩 목록 조회
     @GetMapping
-    public List<ScrapDetailResponse> scrapList(
+    public ResponseEntity<List<ScrapDetailResponse>> scrapList(
         @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        return scrapService.findAllScrap(customUserDetails.getUser());
+        List<ScrapDetailResponse> response = scrapService.findAllScrap(customUserDetails.getUser());
+
+        return ResponseEntity.ok().body(response);
     }
 
     // 스크랩 추가
     @PostMapping("/{documentId}")
-    public ScrapDetailResponse scrapAdd(@PathVariable Long documentId,
+    public ResponseEntity<ScrapDetailResponse> scrapAdd(@PathVariable Long documentId,
         @AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        return scrapService.addScrap(documentId, customUserDetails.getUser());
+        ScrapDetailResponse response = scrapService.addScrap(documentId,
+            customUserDetails.getUser());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // 스크랩 삭제
