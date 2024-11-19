@@ -1,5 +1,6 @@
 package notai.domain.chat.message.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -38,7 +39,7 @@ public class ChatMessage extends BaseTime {
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Enumerated(EnumType.STRING)
