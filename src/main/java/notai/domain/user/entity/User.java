@@ -45,6 +45,7 @@ public class User extends BaseTime {
 
     private String phoneNumber;
 
+    @Column(unique = true)
     private String nickname;
 
     private String address;
