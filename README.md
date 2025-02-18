@@ -5,6 +5,8 @@
 ### AI로 스마트하게, 문서를 손쉽게 공유하세요
 
 # 기능
+<hr>
+
 ### 문서 가져오기 및 편집
 - **문서 업로드**: 사용자들이 PDF 문서를 앱으로 업로드하거나 외부 저장소에서 불러올 수 있는 기능
 - **편집 및 그리기 도구**: 문서에 필기하거나 그림을 그릴 수 있는 도구 제공
@@ -18,6 +20,8 @@
 - **문서 관리**: 사용자 개인의 문서함에서 문서를 정리하고 관리하는 기능
 
 # 기술 스택
+<hr>
+
 ### Client
 - Dart / Flutter
 - Custom Widget
@@ -33,3 +37,22 @@
 - JWT
 - Google Gemini
 - AWS EC2, RDS, S3
+
+# ERD
+<hr>
+
+![image](https://github.com/user-attachments/assets/0a7d3688-0212-48a7-9704-f7e2a7e55e10)
+
+# Architecture
+<hr>
+
+![image](https://github.com/user-attachments/assets/35967fd6-8532-4e59-a92c-06d95e00e8db)
+
+# UI/UX
+<hr>
+
+![image](https://github.com/user-attachments/assets/c224e461-a0b0-47f0-86bc-bf6ba8cb5ce3)
+![image](https://github.com/user-attachments/assets/40183d52-5734-44f7-90cd-c67766626f78)
+![image](https://github.com/user-attachments/assets/288f000a-b362-41aa-8e9f-46f232bb24a3)
+![image](https://github.com/user-attachments/assets/eacff2ef-74a0-4b39-852f-3987744e5bf3)
+![image](https://github.com/user-attachments/assets/7b70d87d-98d3-407e-89a4-cd815b5549a0)
