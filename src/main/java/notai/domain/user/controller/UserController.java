@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class    UserController {
+public class UserController {
 
     private final UserService userService;
 
@@ -54,7 +54,7 @@ public class    UserController {
     }
 
     // 비밀번호 변경
-    @PutMapping("/password")
+    @PatchMapping("/password")
     public ResponseEntity<UserModifyPasswordResponse> userModifyPassword(
         @AuthenticationPrincipal CustomUserDetails customUserDetails,
         @Valid @RequestBody UserModifyPasswordRequest request) {

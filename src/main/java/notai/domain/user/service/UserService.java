@@ -20,6 +20,8 @@ public interface UserService {
 
     void checkUserPassword(UserPasswordCheckRequest request, User user);
 
+    boolean modifyUserPassword(User user, String password);
+
     UserModifyProfileImageResponse modifyUserProfileImage(
         MultipartFile image, User user);
 

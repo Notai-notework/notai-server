@@ -74,6 +74,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean modifyUserPassword(User user, String password) {
+        return false;
+    }
+
     // 유저 프로필 수정/추가
     @Override
     public UserModifyProfileImageResponse modifyUserProfileImage(
