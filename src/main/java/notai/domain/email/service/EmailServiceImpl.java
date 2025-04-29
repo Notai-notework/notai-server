@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import notai.domain.email.dto.request.EmailCheckCodeRequest;
 import notai.domain.email.entity.Email;
 import notai.domain.email.repository.EmailRepository;
+import notai.domain.user.repository.UserRepository;
 import notai.global.exception.CustomException;
 import notai.global.exception.errorCode.EmailErrorCode;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final EmailRepository emailRepository;
     private final JavaMailSender javaMailSender;
+    private final UserRepository userRepository;
 
     // 메일 인증번호 생성 및 전송
     @Override
@@ -74,6 +76,16 @@ public class EmailServiceImpl implements EmailService {
         // 인증번호 불일치
         if (!Objects.equals(foundEmail.getCode(), request.getCode())) {
             throw new CustomException(EmailErrorCode.EMAIL_CODE_VALID_ERROR);
+        }
+    }
+
+    @Override
+    public void checkEmail(String email) {
+
+        boolean isExists = userRepository.existsByEmail(email);
+
+        if (isExists) {
+            throw new CustomException(EmailErrorCode.EMAIL_DUPLICATION);
         }
     }
 
