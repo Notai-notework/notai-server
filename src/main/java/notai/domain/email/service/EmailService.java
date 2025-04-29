@@ -7,4 +7,6 @@ public interface EmailService {
     void sendEmailCode(String email);
 
     void checkEmailCode(EmailCheckCodeRequest request);
+
+    void checkEmail(String email);
 }

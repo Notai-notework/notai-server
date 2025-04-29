@@ -3,6 +3,7 @@ package notai.domain.email.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import notai.domain.email.dto.request.EmailCheckCodeRequest;
+import notai.domain.email.dto.request.EmailCheckRequest;
 import notai.domain.email.service.EmailService;
 import notai.global.dto.MessageResponse;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,17 @@ public class EmailController {
         emailService.checkEmailCode(request);
 
         MessageResponse response = MessageResponse.builder().message("인증번호가 일치합니다").build();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 이메일 중복 확인
+    @PostMapping("/email-exists")
+    public ResponseEntity<MessageResponse> emailCheck(@Valid @RequestBody EmailCheckRequest request) {
+
+        emailService.checkEmail(request.getEmail());
+
+        MessageResponse response = MessageResponse.builder().message("사용 가능한 이메일입니다").build();
 
         return ResponseEntity.ok().body(response);
     }
