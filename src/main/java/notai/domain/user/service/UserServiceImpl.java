@@ -53,14 +53,15 @@ public class UserServiceImpl implements UserService {
 
     // 유저 비밀번호 변경
     @Override
-    public UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request,
-        User user) {
+    public UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request) {
 
-        user.updatePassword(passwordEncoder.encode(request.getPassword()));
+        User foundUser = userRepository.findByEmail(request.getEmail())
+            .orElseThrow(() -> new CustomException(UserErrorCode.USER_NOT_FOUND));
+        foundUser.updatePassword(passwordEncoder.encode(request.getPassword()));
 
-        User updatedUser = userRepository.save(user);
+//        User updatedUser = userRepository.save(foundUser);
 
-        return UserMapper.INSTANCE.toModifyPasswordDTO(updatedUser);
+        return UserMapper.INSTANCE.toModifyPasswordDTO(foundUser);
     }
 
     // 유저 현재 비밀번호 확인

@@ -7,12 +7,16 @@ import notai.domain.auth.dto.request.EmailCheckRequest;
 import notai.domain.auth.dto.request.NicknameCheckRequest;
 import notai.domain.auth.dto.request.PasswordCheckRequest;
 import notai.domain.auth.dto.request.RegisterRequest;
+import notai.domain.user.dto.request.UserModifyPasswordRequest;
+import notai.domain.user.dto.response.UserModifyPasswordResponse;
+import notai.domain.user.service.UserService;
 import notai.global.dto.MessageResponse;
 import notai.domain.auth.service.AuthService;
 import notai.domain.user.dto.response.UserDetailResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final UserService userService;
 
     // 회원가입
     @PostMapping("/register")
@@ -32,6 +37,16 @@ public class AuthController {
         UserDetailResponse response = authService.registerUser(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // 비밀번호 변경
+    @PatchMapping("/password-change")
+    public ResponseEntity<UserModifyPasswordResponse> userModifyPassword(
+        @Valid @RequestBody UserModifyPasswordRequest request) {
+
+        UserModifyPasswordResponse response = userService.modifyUserPassword(request);
+
+        return ResponseEntity.ok().body(response);
     }
 
     // 비밀번호 중복 확인

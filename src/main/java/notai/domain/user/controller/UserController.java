@@ -53,18 +53,6 @@ public class UserController {
         return ResponseEntity.ok().body(response);
     }
 
-    // 비밀번호 변경
-    @PatchMapping("/password")
-    public ResponseEntity<UserModifyPasswordResponse> userModifyPassword(
-        @AuthenticationPrincipal CustomUserDetails customUserDetails,
-        @Valid @RequestBody UserModifyPasswordRequest request) {
-
-        UserModifyPasswordResponse response = userService.modifyUserPassword(request,
-            customUserDetails.getUser());
-
-        return ResponseEntity.ok().body(response);
-    }
-
     // 현재 비밀번호 확인
     @PostMapping("/password-check")
     public ResponseEntity<MessageResponse> userPasswordCheck(

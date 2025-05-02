@@ -16,7 +16,7 @@ public interface UserService {
 
     UserModifyResponse modifyUser(UserModifyRequest request, User user);
 
-    UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request, User user);
+    UserModifyPasswordResponse modifyUserPassword(UserModifyPasswordRequest request);
 
     void checkUserPassword(UserPasswordCheckRequest request, User user);
 
